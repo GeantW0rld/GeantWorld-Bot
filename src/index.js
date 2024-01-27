@@ -1,6 +1,9 @@
 const { Client, Partials, Collection } = require("discord.js");
 const { Channel, GuildMember, Message, Reaction, ThreadMember, User, GuildScheduledEvent } = Partials;
+const { loadCommands } = require("./handlers/commandsHandlers")
+const { loadEvents }  = require("./handlers/eventHandlers")
 require("dotenv").config();
+
 
 const client = new Client({
     intents: 131071,
@@ -10,5 +13,6 @@ const client = new Client({
 client.commands = new Collection();
 
 client.login(process.env.token).then(async (r) => {
-    console.log("online")
+    loadEvents(client)
+    loadCommands(client)
 });
